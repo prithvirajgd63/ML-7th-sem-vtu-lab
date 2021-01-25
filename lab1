@@ -1,0 +1,18 @@
+import csv 
+file=open('Lab1data.csv') 				#Read csv data 
+data=list(csv.reader(file)) 				#Convert into list format 
+length=len(data[0])-1 					#-1 because we don't need the target variable 
+h=['0']*length 						#Initial hypothesis 
+print("Initial Hypothesis:",h) 
+print('Data:') 
+for i in data: 
+	print(i) 
+data.pop(0) 						#Removing the 1st row,i.e, attribute names from data
+for i in range(len(data)): 
+	if data[i][length]=='Yes':                 	#Considering only the positive examples 
+		for j in range (len(data[i])-1):   	#Not considering the target variable 
+			if h[j]=='0': 			#If attibute value is null
+				h[j]=data[i][j]    	#then copy the attribute value from data to hypothesis
+			if h[j]!=data[i][j]:  		#If not equal to previous hypothesis  
+				h[j]='?' 		#then generalise the Hypothesis to '?'
+print("Final Hypothesis(Most Specific):",h) 		#Print Final Most Specific Hypothesis
